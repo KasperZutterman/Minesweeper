@@ -5,11 +5,17 @@ import static javafx.application.Application.launch;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import minesweeper.model.Board;
 import minesweeper.model.Status;
@@ -29,19 +35,22 @@ public class Minesweeper extends Application implements EventHandler<MouseEvent>
     public void start(final Stage primaryStage) {
         mineField = new MyButton[ROWS][COLUMNS];
         board = new Board(ROWS, COLUMNS, 10, this);
-        GridPane root = new GridPane();
+        BorderPane root = new BorderPane();
+        GridPane rootBoard = new GridPane();
         for (int i = 0; i < mineField.length; i++) {
             for (int j = 0; j < mineField.length; j++) {
                 mineField[i][j] = new MyButton(i, j);
                 mineField[i][j].setOnMousePressed(this);
                 Image image = new Image(getClass().getResourceAsStream("/Images/Minesz.gif"));
                 mineField[i][j].setGraphic(new ImageView(image));
-                root.add(mineField[i][j], j, i);
+                rootBoard.add(mineField[i][j], j, i);
             }
 
         }
-
-        root.setAlignment(Pos.CENTER);
+        
+        rootBoard.setAlignment(Pos.CENTER);
+        root.setTop(makeMenuBar());
+        root.setCenter(rootBoard);
         Scene scene = new Scene(root);
         scene.getStylesheets().add("minesweeper/view/minesweeperCSS.css");
 
@@ -98,6 +107,18 @@ public class Minesweeper extends Application implements EventHandler<MouseEvent>
             }
 
         }
+    }
+    
+    public MenuBar makeMenuBar() {
+        MenuBar menuBar = new MenuBar();
+        Menu menu = new Menu("Game");
+        menuBar.getMenus().add(menu);
+        MenuItem miNewGame = new MenuItem("New Game");
+        MenuItem miStatistics = new MenuItem("Statistics");
+        MenuItem miOptions = new MenuItem("Options");
+        MenuItem miClose = new MenuItem("Close");
+        menu.getItems().addAll(miNewGame,new SeparatorMenuItem(), miStatistics, miOptions, new SeparatorMenuItem(), miClose);
+        return menuBar;
     }
 
     /**
