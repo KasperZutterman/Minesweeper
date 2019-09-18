@@ -8,8 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import minesweeper.model.Board;
 import minesweeper.model.Status;
-import static minesweeper.view.Minesweeper.COLUMNS;
-import static minesweeper.view.Minesweeper.ROWS;
 
 /**
  *
