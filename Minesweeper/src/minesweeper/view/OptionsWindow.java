@@ -7,6 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -82,12 +85,30 @@ public class OptionsWindow {
         Button btnClose = new Button("Cancel");
         btnClose.setOnAction(e -> optionsWindow.close());
         
-        VBox layout = new VBox(10);
+        VBox setDifficulty = new VBox();
+        setDifficulty.getChildren().addAll(btnBeginner, btnIntermediate, btnAdvanced);
+        
+        GridPane customDifficulty = new GridPane();
+        customDifficulty.add(btnCustom, 0, 0);
+        customDifficulty.add(new Label("Height (9 - 24):"), 0, 1);
+        customDifficulty.add(txtRows, 1, 1);
+        customDifficulty.add(new Label("Width (9 - 30):"), 0, 2);
+        customDifficulty.add(txtColumns, 1, 2);
+        customDifficulty.add(new Label("Height (10 - 668):"), 0, 3);
+        customDifficulty.add(txtMines, 1, 3);
+        
+        HBox difficulties = new HBox();
+        difficulties.getChildren().addAll(setDifficulty, customDifficulty);
 
-        layout.getChildren().addAll(lblDifficulty, btnBeginner, btnIntermediate, btnAdvanced, btnCustom, txtMines, txtRows, txtColumns, btnOK, btnClose);
+        FlowPane buttons = new FlowPane();
+        buttons.getChildren().addAll(btnOK, btnClose);
+        buttons.setAlignment(Pos.TOP_RIGHT); 
+        
+        VBox layout = new VBox();
+        layout.getChildren().addAll(lblDifficulty, difficulties, buttons);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout, 300, 250);
+        Scene scene = new Scene(layout, 400, 400);
 
         optionsWindow.setScene(scene);
         optionsWindow.showAndWait();
