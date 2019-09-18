@@ -15,7 +15,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import minesweeper.model.Board;
 import minesweeper.model.Status;
@@ -113,11 +112,17 @@ public class Minesweeper extends Application implements EventHandler<MouseEvent>
         MenuBar menuBar = new MenuBar();
         Menu menu = new Menu("Game");
         menuBar.getMenus().add(menu);
+        
         MenuItem miNewGame = new MenuItem("New Game");
+        
         MenuItem miStatistics = new MenuItem("Statistics");
+        
         MenuItem miOptions = new MenuItem("Options");
+        
         MenuItem miClose = new MenuItem("Close");
-        menu.getItems().addAll(miNewGame,new SeparatorMenuItem(), miStatistics, miOptions, new SeparatorMenuItem(), miClose);
+        miClose.setOnAction(e -> System.exit(0));
+        
+        menu.getItems().addAll(miNewGame, new SeparatorMenuItem(), miStatistics, miOptions, new SeparatorMenuItem(), miClose);
         return menuBar;
     }
 
