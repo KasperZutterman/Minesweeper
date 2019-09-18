@@ -30,9 +30,60 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
     private BoardView boardView;
     public static final int ROWS = 11;
     public static final int COLUMNS = 11;
+    private Stage primaryStage;
 
     @Override
     public void start(final Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        newGame(primaryStage);
+//        mineField = new MyButton[ROWS][COLUMNS];
+//        board = new Board(ROWS, COLUMNS, 10, this);
+//        boardView = new BoardView(ROWS, COLUMNS, board);
+//        BorderPane root = new BorderPane();
+//        
+//        boardView.setAlignment(Pos.CENTER);
+//        
+//        root.setTop(makeMenuBar());
+//        root.setCenter(boardView);
+//        Scene scene = new Scene(root);
+//        scene.getStylesheets().add("minesweeper/view/minesweeperCSS.css");
+//
+//        primaryStage.setTitle("Minesweeper");
+//        primaryStage.setResizable(false);
+//        primaryStage.sizeToScene();
+//        primaryStage.setScene(scene);
+//        primaryStage.show();
+
+    }
+
+    public void updateButtons() {
+        boardView.updateButtons();
+    }
+
+    public void gameOver() {
+        boardView.gameOver();
+    }
+    
+    public MenuBar makeMenuBar() {
+        MenuBar menuBar = new MenuBar();
+        Menu menu = new Menu("Game");
+        menuBar.getMenus().add(menu);
+        
+        MenuItem miNewGame = new MenuItem("New Game");
+        miNewGame.setOnAction(e -> newGame(primaryStage));
+        
+        MenuItem miStatistics = new MenuItem("Statistics");
+        
+        MenuItem miOptions = new MenuItem("Options");
+        
+        MenuItem miClose = new MenuItem("Close");
+        miClose.setOnAction(e -> System.exit(0));
+        
+        menu.getItems().addAll(miNewGame, new SeparatorMenuItem(), miStatistics, miOptions, new SeparatorMenuItem(), miClose);
+        return menuBar;
+    }
+
+    public void newGame(final Stage primaryStage) {
         mineField = new MyButton[ROWS][COLUMNS];
         board = new Board(ROWS, COLUMNS, 10, this);
         boardView = new BoardView(ROWS, COLUMNS, board);
@@ -50,75 +101,8 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
         primaryStage.sizeToScene();
         primaryStage.setScene(scene);
         primaryStage.show();
-
-    }
-
-//    @Override
-//    public void handle(MouseEvent t) {
-//        MyButton button = (MyButton) t.getSource();
-//        int row = button.getRow();
-//        int column = button.getColumn();
-//        if (t.getButton().equals(MouseButton.PRIMARY) && !board.isTileMarked(row, column)) {
-//            //leftMouseButtonPressed(row, column);
-//            board.handleLeftClick(row, column);
-//        }
-//        if (t.getButton().equals(MouseButton.SECONDARY)) {
-//            board.handleRightClick(row, column);
-//        }
-//
-//    }
-
-    public void updateButtons() {
-//        for (int i = 0; i < mineField.length; i++) {
-//            for (int j = 0; j < mineField[0].length; j++) {
-//                Status state = board.getTileStatus(i, j);
-//                if (state == Status.CLICKED) {
-//                    Image image = new Image(getClass().getResourceAsStream("/Images/Mines" + board.getNeighbourCount(i, j) + ".gif"));
-//                    mineField[i][j].setGraphic(new ImageView(image));
-//                } else if (board.isTileMarked(i, j)) {
-//                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesf.gif"));
-//                    mineField[i][j].setGraphic(new ImageView(image));
-//                }
-//            }
-//        }
-        boardView.updateButtons();
-    }
-
-    public void gameOver() {
-//        for (int i = 0; i < mineField.length; i++) {
-//            for (int j = 0; j < mineField[i].length; j++) {
-//                mineField[i][j].setOnMousePressed(null);
-//                if (board.getTileStatus(i, j) == Status.BOMB) {
-//                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesb.gif"));
-//                    mineField[i][j].setGraphic(new ImageView(image));
-//                } else if (board.getTileStatus(i, j) == Status.EXPLODED) {
-//                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesn.gif"));
-//                    mineField[i][j].setGraphic(new ImageView(image));
-//                }
-//            }
-//
-//        }
-        boardView.gameOver();
     }
     
-    public MenuBar makeMenuBar() {
-        MenuBar menuBar = new MenuBar();
-        Menu menu = new Menu("Game");
-        menuBar.getMenus().add(menu);
-        
-        MenuItem miNewGame = new MenuItem("New Game");
-        
-        MenuItem miStatistics = new MenuItem("Statistics");
-        
-        MenuItem miOptions = new MenuItem("Options");
-        
-        MenuItem miClose = new MenuItem("Close");
-        miClose.setOnAction(e -> System.exit(0));
-        
-        menu.getItems().addAll(miNewGame, new SeparatorMenuItem(), miStatistics, miOptions, new SeparatorMenuItem(), miClose);
-        return menuBar;
-    }
-
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be
