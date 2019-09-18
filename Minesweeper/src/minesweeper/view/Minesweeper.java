@@ -31,10 +31,12 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
     public static final int ROWS = 11;
     public static final int COLUMNS = 11;
     private Stage primaryStage;
+    private OptionsWindow optionsWindow;
 
     @Override
     public void start(final Stage primaryStage) {
         this.primaryStage = primaryStage;
+        optionsWindow = new OptionsWindow();
         primaryStage.setTitle("Minesweeper");
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
@@ -60,6 +62,7 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
         MenuItem miStatistics = new MenuItem("Statistics");
         
         MenuItem miOptions = new MenuItem("Options");
+        miOptions.setOnAction(e -> optionsWindow.display(primaryStage));
         
         MenuItem miClose = new MenuItem("Close");
         miClose.setOnAction(e -> System.exit(0));
