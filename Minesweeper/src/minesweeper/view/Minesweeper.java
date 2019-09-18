@@ -25,11 +25,11 @@ import minesweeper.model.Status;
  */
 public class Minesweeper extends Application {//implements EventHandler<MouseEvent> {
 
-    private MyButton[][] mineField;
     private Board board;
     private BoardView boardView;
-    public static final int ROWS = 11;
-    public static final int COLUMNS = 11;
+    public static int mines = 10;
+    public static int rows = 9;
+    public static int columns = 9;
     private Stage primaryStage;
     private OptionsWindow optionsWindow;
 
@@ -62,7 +62,7 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
         MenuItem miStatistics = new MenuItem("Statistics");
         
         MenuItem miOptions = new MenuItem("Options");
-        miOptions.setOnAction(e -> optionsWindow.display(primaryStage));
+        miOptions.setOnAction(e -> optionsWindow.display(primaryStage, this));
         
         MenuItem miClose = new MenuItem("Close");
         miClose.setOnAction(e -> System.exit(0));
@@ -72,9 +72,8 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
     }
 
     public void newGame(final Stage primaryStage) {
-        mineField = new MyButton[ROWS][COLUMNS];
-        board = new Board(ROWS, COLUMNS, 10, this);
-        boardView = new BoardView(ROWS, COLUMNS, board);
+        board = new Board(rows, columns, mines, this);
+        boardView = new BoardView(rows, columns, board);
         BorderPane root = new BorderPane();
         
         boardView.setAlignment(Pos.CENTER);
@@ -89,6 +88,12 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
         primaryStage.show();
     }
     
+    public void setParameters(int mines, int columns, int rows) {
+        this.mines = mines;
+        this.columns = columns;
+        this.rows = rows;
+        newGame(primaryStage);
+    }
     /**
      * The main() method is ignored in correctly deployed JavaFX application.
      * main() serves only as fallback in case the application can not be

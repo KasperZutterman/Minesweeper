@@ -23,7 +23,7 @@ public class BoardView extends GridPane implements EventHandler<MouseEvent>{
         this.board = board;
         
         for (int i = 0; i < mineField.length; i++) {
-            for (int j = 0; j < mineField.length; j++) {
+            for (int j = 0; j < mineField[0].length; j++) {
                 mineField[i][j] = new MyButton(i, j);
                 mineField[i][j].setOnMousePressed(this);
                 Image image = new Image(getClass().getResourceAsStream("/Images/Minesz.gif"));

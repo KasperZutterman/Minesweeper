@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -17,10 +18,10 @@ import javafx.stage.Window;
  */
 public class OptionsWindow {
     
-    public static void display(Window owner) {
+    public static void display(Window owner, Minesweeper parent) {
         Stage optionsWindow = new Stage();
 
-        optionsWindow.initModality(Modality.APPLICATION_MODAL);
+        optionsWindow.initModality(Modality.WINDOW_MODAL);
         optionsWindow.initOwner(owner);
         optionsWindow.setTitle("Options");
 
@@ -44,9 +45,37 @@ public class OptionsWindow {
         RadioButton btnCustom = new RadioButton("Custom");
         btnCustom.setUserData("Custom");
         btnCustom.setToggleGroup(tgDifficulty);
+        TextField txtMines = new TextField("10");
+        TextField txtColumns = new TextField("9");
+        TextField txtRows = new TextField("9");
         
         Button btnOK = new Button("OK");
         btnOK.setOnAction(e -> {
+            int mines;
+            int rows;
+            int columns;
+            
+            if (tgDifficulty.getSelectedToggle().getUserData() == "Beginner") {
+                mines = 10;
+                rows = 9;
+                columns = 9;
+            }
+            else if (tgDifficulty.getSelectedToggle().getUserData() == "Intermediate") {
+                mines = 40;
+                rows = 16;
+                columns = 16;
+            }
+            else if (tgDifficulty.getSelectedToggle().getUserData() == "Advanced") {
+                mines = 40;
+                rows = 16;
+                columns = 16;
+            }
+            else {
+                mines = Integer.parseInt(txtMines.getText());
+                rows = Integer.parseInt(txtRows.getText());
+                columns = Integer.parseInt(txtColumns.getText());
+            }
+            parent.setParameters(mines, columns, rows);
             optionsWindow.close();
         });
         
@@ -55,7 +84,7 @@ public class OptionsWindow {
         
         VBox layout = new VBox(10);
 
-        layout.getChildren().addAll(lblDifficulty, btnBeginner, btnIntermediate, btnAdvanced, btnCustom, btnOK, btnClose);
+        layout.getChildren().addAll(lblDifficulty, btnBeginner, btnIntermediate, btnAdvanced, btnCustom, txtMines, txtRows, txtColumns, btnOK, btnClose);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout, 300, 250);

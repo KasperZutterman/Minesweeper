@@ -31,17 +31,17 @@ public class Board {
         }
         Random r = new Random();
         for (int i = 1; i <= mineCount; i++) {
-            int row = r.nextInt(Minesweeper.ROWS);
-            int column = r.nextInt(Minesweeper.COLUMNS);
+            int row = r.nextInt(Minesweeper.rows);
+            int column = r.nextInt(Minesweeper.columns);
             while (board[row][column].getStatus() == Status.BOMB) {
-                row = r.nextInt(Minesweeper.ROWS);
-                column = r.nextInt(Minesweeper.COLUMNS);
+                row = r.nextInt(Minesweeper.rows);
+                column = r.nextInt(Minesweeper.columns);
             }
             board[row][column].setStatus(Status.BOMB);
-            if (column < Minesweeper.COLUMNS-1) {
+            if (column < Minesweeper.columns-1) {
                 board[row][column + 1].incNeighbourCount();
             }
-            if (row < Minesweeper.ROWS-1) {
+            if (row < Minesweeper.rows-1) {
                 board[row + 1][column].incNeighbourCount();
             }
             if (column > 0) {
@@ -50,13 +50,13 @@ public class Board {
             if (row > 0) {
                 board[row - 1][column].incNeighbourCount();
             }
-            if (row < Minesweeper.ROWS-1 && column < Minesweeper.COLUMNS-1) {
+            if (row < Minesweeper.rows-1 && column < Minesweeper.columns-1) {
                 board[row + 1][column + 1].incNeighbourCount();
             }
-            if (row < Minesweeper.ROWS-1 && column > 0) {
+            if (row < Minesweeper.rows-1 && column > 0) {
                 board[row + 1][column - 1].incNeighbourCount();
             }
-            if (row > 0 && column < Minesweeper.COLUMNS-1) {
+            if (row > 0 && column < Minesweeper.columns-1) {
                 board[row - 1][column + 1].incNeighbourCount();
             }
             if (row > 0 && column > 0) {
@@ -129,13 +129,13 @@ public class Board {
     }
 
     private void removeEmptyNeighbourCells(int row, int column) {
-        if (row < Minesweeper.ROWS && column < Minesweeper.COLUMNS && getNeighbourCount(row, column) == 0 && getTileStatus(row, column) != Status.CLICKED) {
+        if (row < Minesweeper.rows && column < Minesweeper.columns && getNeighbourCount(row, column) == 0 && getTileStatus(row, column) != Status.CLICKED) {
             if (!isTileMarked(row, column)) {
                 setTileStatus(row, column, Status.CLICKED);
             }
             for (int i = row - 1; i <= row + 1; i++) {
                 for (int j = column - 1; j <= column + 1; j++) {
-                    if ((i != row || j != column) && (i >= 0 && i < Minesweeper.ROWS) && (j >= 0 && j < Minesweeper.COLUMNS) && !isTileMarked(row, column)) {
+                    if ((i != row || j != column) && (i >= 0 && i < Minesweeper.rows) && (j >= 0 && j < Minesweeper.columns) && !isTileMarked(row, column)) {
                         removeEmptyNeighbourCells(i, j);
                     }
                 }
