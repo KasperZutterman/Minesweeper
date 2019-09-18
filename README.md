@@ -3,9 +3,10 @@
 ### TODO list
 
 - [x] Game board
+- [x] Menu bar
 - [ ] Size selector
 - [ ] Bom amount selector
-- [ ] Button reset
+- [x] Start new game
 - [ ] Button start
 - [ ] Button pause
 - [ ] Timer
