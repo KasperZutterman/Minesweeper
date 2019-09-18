@@ -35,25 +35,10 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
     @Override
     public void start(final Stage primaryStage) {
         this.primaryStage = primaryStage;
+        primaryStage.setTitle("Minesweeper");
+        primaryStage.setResizable(false);
+        primaryStage.sizeToScene();
         newGame(primaryStage);
-//        mineField = new MyButton[ROWS][COLUMNS];
-//        board = new Board(ROWS, COLUMNS, 10, this);
-//        boardView = new BoardView(ROWS, COLUMNS, board);
-//        BorderPane root = new BorderPane();
-//        
-//        boardView.setAlignment(Pos.CENTER);
-//        
-//        root.setTop(makeMenuBar());
-//        root.setCenter(boardView);
-//        Scene scene = new Scene(root);
-//        scene.getStylesheets().add("minesweeper/view/minesweeperCSS.css");
-//
-//        primaryStage.setTitle("Minesweeper");
-//        primaryStage.setResizable(false);
-//        primaryStage.sizeToScene();
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
-
     }
 
     public void updateButtons() {
@@ -96,9 +81,7 @@ public class Minesweeper extends Application {//implements EventHandler<MouseEve
         Scene scene = new Scene(root);
         scene.getStylesheets().add("minesweeper/view/minesweeperCSS.css");
 
-        primaryStage.setTitle("Minesweeper");
-        primaryStage.setResizable(false);
-        primaryStage.sizeToScene();
+       
         primaryStage.setScene(scene);
         primaryStage.show();
     }
