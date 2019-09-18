@@ -18,10 +18,11 @@ import minesweeper.model.Status;
  *
  * @author Kasper Zutterman
  */
-public class Minesweeper extends Application implements EventHandler<MouseEvent> {
+public class Minesweeper extends Application {//implements EventHandler<MouseEvent> {
 
     private MyButton[][] mineField;
     private Board board;
+    private BoardView boardView;
     public static final int ROWS = 11;
     public static final int COLUMNS = 11;
 
@@ -29,20 +30,10 @@ public class Minesweeper extends Application implements EventHandler<MouseEvent>
     public void start(final Stage primaryStage) {
         mineField = new MyButton[ROWS][COLUMNS];
         board = new Board(ROWS, COLUMNS, 10, this);
-        GridPane root = new GridPane();
-        for (int i = 0; i < mineField.length; i++) {
-            for (int j = 0; j < mineField.length; j++) {
-                mineField[i][j] = new MyButton(i, j);
-                mineField[i][j].setOnMousePressed(this);
-                Image image = new Image(getClass().getResourceAsStream("/Images/Minesz.gif"));
-                mineField[i][j].setGraphic(new ImageView(image));
-                root.add(mineField[i][j], j, i);
-            }
-
-        }
-
-        root.setAlignment(Pos.CENTER);
-        Scene scene = new Scene(root);
+        boardView = new BoardView(ROWS, COLUMNS, board);
+        
+        boardView.setAlignment(Pos.CENTER);
+        Scene scene = new Scene(boardView);
         scene.getStylesheets().add("minesweeper/view/minesweeperCSS.css");
 
         primaryStage.setTitle("Minesweeper");
@@ -53,51 +44,52 @@ public class Minesweeper extends Application implements EventHandler<MouseEvent>
 
     }
 
-    @Override
-    public void handle(MouseEvent t) {
-        MyButton button = (MyButton) t.getSource();
-        int row = button.getRow();
-        int column = button.getColumn();
-        if (t.getButton().equals(MouseButton.PRIMARY) && !board.isTileMarked(row, column)) {
-            //leftMouseButtonPressed(row, column);
-            board.handleLeftClick(row, column);
-        }
-        if (t.getButton().equals(MouseButton.SECONDARY)) {
-            board.handleRightClick(row, column);
-        }
-
-    }
+//    @Override
+//    public void handle(MouseEvent t) {
+//        MyButton button = (MyButton) t.getSource();
+//        int row = button.getRow();
+//        int column = button.getColumn();
+//        if (t.getButton().equals(MouseButton.PRIMARY) && !board.isTileMarked(row, column)) {
+//            //leftMouseButtonPressed(row, column);
+//            board.handleLeftClick(row, column);
+//        }
+//        if (t.getButton().equals(MouseButton.SECONDARY)) {
+//            board.handleRightClick(row, column);
+//        }
+//
+//    }
 
     public void updateButtons() {
-        for (int i = 0; i < mineField.length; i++) {
-            for (int j = 0; j < mineField[0].length; j++) {
-                Status state = board.getTileStatus(i, j);
-                if (state == Status.CLICKED) {
-                    Image image = new Image(getClass().getResourceAsStream("/Images/Mines" + board.getNeighbourCount(i, j) + ".gif"));
-                    mineField[i][j].setGraphic(new ImageView(image));
-                } else if (board.isTileMarked(i, j)) {
-                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesf.gif"));
-                    mineField[i][j].setGraphic(new ImageView(image));
-                }
-            }
-        }
-
+//        for (int i = 0; i < mineField.length; i++) {
+//            for (int j = 0; j < mineField[0].length; j++) {
+//                Status state = board.getTileStatus(i, j);
+//                if (state == Status.CLICKED) {
+//                    Image image = new Image(getClass().getResourceAsStream("/Images/Mines" + board.getNeighbourCount(i, j) + ".gif"));
+//                    mineField[i][j].setGraphic(new ImageView(image));
+//                } else if (board.isTileMarked(i, j)) {
+//                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesf.gif"));
+//                    mineField[i][j].setGraphic(new ImageView(image));
+//                }
+//            }
+//        }
+        boardView.updateButtons();
     }
 
     public void gameOver() {
-        for (int i = 0; i < mineField.length; i++) {
-            for (int j = 0; j < mineField[i].length; j++) {
-                mineField[i][j].setOnMousePressed(null);
-                if (board.getTileStatus(i, j) == Status.BOMB) {
-                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesb.gif"));
-                    mineField[i][j].setGraphic(new ImageView(image));
-                } else if (board.getTileStatus(i, j) == Status.EXPLODED) {
-                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesn.gif"));
-                    mineField[i][j].setGraphic(new ImageView(image));
-                }
-            }
-
-        }
+//        for (int i = 0; i < mineField.length; i++) {
+//            for (int j = 0; j < mineField[i].length; j++) {
+//                mineField[i][j].setOnMousePressed(null);
+//                if (board.getTileStatus(i, j) == Status.BOMB) {
+//                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesb.gif"));
+//                    mineField[i][j].setGraphic(new ImageView(image));
+//                } else if (board.getTileStatus(i, j) == Status.EXPLODED) {
+//                    Image image = new Image(getClass().getResourceAsStream("/Images/Minesn.gif"));
+//                    mineField[i][j].setGraphic(new ImageView(image));
+//                }
+//            }
+//
+//        }
+        boardView.gameOver();
     }
 
     /**
