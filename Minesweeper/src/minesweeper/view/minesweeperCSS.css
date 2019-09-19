@@ -1,11 +1,11 @@
 /* 
     Document   : minesweeperCSS
-    Created on : 14-mrt-2014, 12:46:42
-    Author     : Wim
+    Created on : 19-mrt-2019, 12:46:42
+    Author     : Kasper Zutterman
     Description:
         Purpose of the stylesheet follows.
 */
-.boardView {
+.BoardView {
     -fx-padding: 20;
 }
 .button {
